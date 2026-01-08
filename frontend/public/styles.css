@@ -1,0 +1,220 @@
+:root {
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    Noto Sans,
+    Arial;
+  color: #111;
+  background: #fafafa;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 24px;
+}
+
+.muted {
+  margin: 0;
+  color: #666;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 240px;
+  flex: 1;
+}
+
+label {
+  font-size: 12px;
+  color: #444;
+}
+
+input {
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  padding: 10px 12px;
+  outline: none;
+  font-size: 14px;
+}
+
+input:focus {
+  border-color: #aaa;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+button {
+  border: 1px solid #d8d8d8;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+button.danger {
+  background: #fff5f5;
+  border-color: #ffcccc;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border-top: 1px solid #eee;
+  padding: 10px 8px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.table th {
+  color: #555;
+  font-weight: 600;
+  background: #fcfcfc;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid #e6e6e6;
+  border-radius: 999px;
+  font-size: 12px;
+  color: #555;
+  background: #fff;
+}
+
+.alert {
+  border-radius: 10px;
+  padding: 10px 12px;
+  border: 1px solid #ffd9a8;
+  background: #fff7ed;
+  color: #7a4b00;
+}
+
+.alert.error {
+  border-color: #ffc9c9;
+  background: #fff5f5;
+  color: #7a0010;
+}
+
+.small {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Alinea inputs y botón en la misma línea del formulario */
+.form-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end; /* clave: alinea botón con el borde inferior de inputs */
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 240px;
+  flex: 1;
+}
+
+.field-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.field-actions .spacer-label {
+  font-size: 12px;
+  color: transparent; /* ocupa espacio de label sin verse */
+  user-select: none;
+}
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid #eee; /* opcional: separador */
+  margin-top: 10px;
+}
+
+.table {
+  width: 100%;
+  min-width: 860px; /* clave: fuerza scroll en pantallas pequeñas */
+  border-collapse: collapse;
+}
+
+/* Opcional: evita que los <code> rompan el layout */
+.table code {
+  white-space: nowrap;
+}
+
+/* Inputs en edición no rompen tanto */
+.table input {
+  width: 100%;
+  min-width: 180px;
+  box-sizing: border-box;
+}
+.table .input-small {
+  min-width: 160px;
+}
+
+dialog {
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 14px;
+  max-width: 420px;
+  width: calc(100% - 24px);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.25);
+}

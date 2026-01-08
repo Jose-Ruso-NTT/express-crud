@@ -10,8 +10,6 @@ import {
   userIdParamSchema,
 } from "./users.schemas";
 
-// TODO: Comprobar los status ahi hardcodeados
-
 type UsersControllerDeps = {
   createUser: (input: CreateUserRequestDto) => Promise<UserResponseDto>;
   listUsers: () => Promise<UserResponseDto[]>;

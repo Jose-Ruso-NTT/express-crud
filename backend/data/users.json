@@ -1,3 +1,11 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": "64c496e9-928d-48b3-95a7-bdfb2710d65d",
+      "email": "test@test.comm",
+      "name": "Nuevo nombre",
+      "createdAt": "2026-01-08T12:55:21.081Z",
+      "updatedAt": "2026-01-08T14:33:53.748Z"
+    }
+  ]
 }
