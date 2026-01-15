@@ -98,6 +98,17 @@ function formatApiError(err) {
   return `Error${status ? ` (${status})` : ""}: ${err?.message || "Unknown error"}`;
 }
 
+function formatDate(dateLike) {
+  if (!dateLike) return "";
+  const d = new Date(dateLike);
+  if (Number.isNaN(d.getTime())) return "";
+
+  return new Intl.DateTimeFormat("es-ES", {
+    dateStyle: "short",
+    timeStyle: "short",
+  }).format(d);
+}
+
 class UsersApp extends HTMLElement {
   #api = new UsersApi(API_BASE_URL);
   #state = {
@@ -212,24 +223,62 @@ class UsersApp extends HTMLElement {
 
   async confirmDelete() {
     const dialog = this.querySelector("#confirm-delete-dialog");
-    if (!(dialog instanceof HTMLDialogElement)) {
-      // Fallback defensivo (no debería pasar)
-      return false;
-    }
+    if (!(dialog instanceof HTMLDialogElement)) return false;
 
-    // Si el navegador no soporta <dialog>, fallback (Edge moderno lo soporta)
+    // Fallback
     if (typeof dialog.showModal !== "function") {
       return confirm("¿Eliminar este usuario?");
     }
 
-    // Espera a que el usuario cierre el dialog
+    const focusableSelector =
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const focusables = () =>
+      Array.from(dialog.querySelectorAll(focusableSelector)).filter(
+        (el) => !el.hasAttribute("disabled"),
+      );
+
+    const previouslyFocused = document.activeElement;
+
+    const onKeyDown = (e) => {
+      if (e.key !== "Tab") return;
+
+      const items = focusables();
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    dialog.addEventListener("keydown", onKeyDown);
+
+    dialog.showModal();
+
+    // Foco inicial: primer botón
+    queueMicrotask(() => {
+      const items = focusables();
+      if (items[0]) items[0].focus();
+    });
+
     return await new Promise((resolve) => {
-      const onClose = () => {
-        dialog.removeEventListener("close", onClose);
-        resolve(dialog.returnValue === "confirm");
-      };
-      dialog.addEventListener("close", onClose);
-      dialog.showModal();
+      dialog.addEventListener(
+        "close",
+        () => {
+          dialog.removeEventListener("keydown", onKeyDown);
+          if (previouslyFocused instanceof HTMLElement) {
+            previouslyFocused.focus();
+          }
+          resolve(dialog.returnValue === "confirm");
+        },
+        { once: true },
+      );
     });
   }
 
@@ -293,7 +342,7 @@ class UsersApp extends HTMLElement {
       savingEdit,
     } = this.#state;
 
-    this.innerHTML = /*html*/ `
+    this.innerHTML = `
       <section class="card" style="margin-bottom: 14px;">
         <div class="row" style="justify-content: space-between; align-items: center;">
           <div>
@@ -338,10 +387,10 @@ class UsersApp extends HTMLElement {
 
         ${
           loading
-            ? /*html*/ `<p class="small" style="margin-top: 10px;">Cargando...</p>`
+            ? `<p class="small" style="margin-top: 10px;">Cargando...</p>`
             : users.length === 0
-              ? /*html*/ `<p class="small" style="margin-top: 10px;">No hay usuarios todavía.</p>`
-              : /*html*/ `
+              ? `<p class="small" style="margin-top: 10px;">No hay usuarios todavía.</p>`
+              : `
               <div class="table-scroll">
                 <table class="table">
                   <thead>
@@ -360,7 +409,7 @@ class UsersApp extends HTMLElement {
                         const isEditing = editingId === u.id;
 
                         const emailCell = isEditing
-                          ? /*html*/ `<input class="input-small" data-field="edit-email" type="email" value="${escapeHtml(editDraft.email)}" />`
+                          ? `<input class="input-small" data-field="edit-email" type="email" value="${escapeHtml(editDraft.email)}" />`
                           : `${escapeHtml(u.email)}`;
 
                         const nameCell = isEditing
@@ -368,7 +417,7 @@ class UsersApp extends HTMLElement {
                           : `${escapeHtml(u.name)}`;
 
                         const actions = isEditing
-                          ? /*html*/ `
+                          ? `
                           <div class="actions">
                             <button class="primary" data-action="save-edit" data-id="${escapeHtml(u.id)}" ${savingEdit ? "disabled" : ""}>
                               ${savingEdit ? "Guardando..." : "Guardar"}
@@ -376,20 +425,20 @@ class UsersApp extends HTMLElement {
                             <button data-action="cancel-edit" ${savingEdit ? "disabled" : ""}>Cancelar</button>
                           </div>
                         `
-                          : /*html*/ `
+                          : `
                           <div class="actions">
                             <button data-action="edit" data-id="${escapeHtml(u.id)}">Editar</button>
                             <button class="danger" data-action="delete" data-id="${escapeHtml(u.id)}">Eliminar</button>
                           </div>
                         `;
 
-                        return /*html*/ `
+                        return `
                         <tr>
                           <td><code>${escapeHtml(u.id)}</code></td>
                           <td>${emailCell}</td>
                           <td>${nameCell}</td>
-                          <td>${escapeHtml(u.createdAt)}</td>
-                          <td>${escapeHtml(u.updatedAt)}</td>
+                          <td>${escapeHtml(formatDate(u.createdAt))}</td>
+                          <td>${escapeHtml(formatDate(u.updatedAt))}</td>
                           <td>${actions}</td>
                         </tr>
                       `;
