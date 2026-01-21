@@ -1,4 +1,4 @@
-import { ConflictError } from "../../../../shared/errors/conflict-error.ts";
+import { ConflictError } from "@shared/errors/conflict-error.ts";
 import { toUserResponseDto, type UserResponseDto } from "../../users.dto.ts";
 import type { UsersRepositoryPort } from "../ports/users-repository.port.ts";
 

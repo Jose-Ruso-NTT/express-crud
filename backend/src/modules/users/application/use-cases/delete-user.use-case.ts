@@ -1,4 +1,4 @@
-import { NotFoundError } from "../../../../shared/errors/not-found-error";
+import { NotFoundError } from "@shared/errors/not-found-error";
 import type { UsersRepositoryPort } from "../ports/users-repository.port";
 
 type Deps = { usersRepo: UsersRepositoryPort };

@@ -1,4 +1,4 @@
-import { NotFoundError } from "../../../../shared/errors/not-found-error";
+import { NotFoundError } from "@shared/errors/not-found-error";
 import { toUserResponseDto, type UserResponseDto } from "../../users.dto";
 import type { UsersRepositoryPort } from "../ports/users-repository.port";
 

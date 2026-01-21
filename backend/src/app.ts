@@ -1,8 +1,8 @@
+import { errorMiddleware } from "@shared/http/error.middleware.ts";
+import { requestIdMiddleware } from "@shared/http/requestId.middleware.ts";
 import cors from "cors";
 import express from "express";
 import { buildUsersModule } from "./modules/users/users.module.ts";
-import { errorMiddleware } from "./shared/http/error.middleware.ts";
-import { requestIdMiddleware } from "./shared/http/requestId.middleware.ts";
 
 export function buildApp() {
   const app = express();
