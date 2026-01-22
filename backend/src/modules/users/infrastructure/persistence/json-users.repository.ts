@@ -1,3 +1,7 @@
+import {
+  CreateUserRequestDto,
+  UpdateUserRequestDto,
+} from "modules/users/users.dto";
 import type { IdGeneratorPort } from "../../application/ports/id-generator.port";
 import type {
   UserRecord,
@@ -29,7 +33,7 @@ export class JsonUsersRepository implements UsersRepositoryPort {
     return [...users];
   }
 
-  async create(data: { email: string; name: string }): Promise<UserRecord> {
+  async create(data: CreateUserRequestDto): Promise<UserRecord> {
     const now = new Date().toISOString();
 
     const record: UserRecord = {
@@ -50,7 +54,7 @@ export class JsonUsersRepository implements UsersRepositoryPort {
 
   async updateById(
     id: string,
-    patch: { email?: string; name?: string },
+    patch: UpdateUserRequestDto,
   ): Promise<UserRecord | null> {
     let result: UserRecord | null = null;
 

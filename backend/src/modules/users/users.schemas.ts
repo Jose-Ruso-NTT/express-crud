@@ -4,6 +4,10 @@ export const userIdParamSchema = z.object({
   id: z.string().min(1),
 });
 
+export const userEmailParamSchema = z.object({
+  email: z.email(),
+});
+
 export const createUserSchema = z.object({
   email: z.email(),
   name: z.string().min(1),

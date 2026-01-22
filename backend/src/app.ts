@@ -1,4 +1,5 @@
 import { errorMiddleware } from "@shared/http/error.middleware.ts";
+import { HttpStatus } from "@shared/http/http-status.ts";
 import { requestIdMiddleware } from "@shared/http/requestId.middleware.ts";
 import cors from "cors";
 import express from "express";
@@ -13,7 +14,9 @@ export function buildApp() {
   app.use(requestIdMiddleware);
 
   // base endpoints
-  app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
+  app.get("/health", (_req, res) =>
+    res.status(HttpStatus.OK).json({ ok: true }),
+  );
 
   // Modules
   app.use("/v1/users", buildUsersModule());

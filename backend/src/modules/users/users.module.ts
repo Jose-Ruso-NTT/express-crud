@@ -13,6 +13,7 @@ import { createJsonDbClient } from "./infrastructure/persistence/json-db.client"
 import { JsonUsersRepository } from "./infrastructure/persistence/json-users.repository";
 
 import type { UserRecord } from "./application/ports/users-repository.port";
+import { getUserByEmail } from "./application/use-cases/get-user-by-email.user-case";
 
 type UsersDbShape = { users: UserRecord[] };
 
@@ -30,6 +31,7 @@ export function buildUsersModule(): Router {
     createUser: createUser({ usersRepo }),
     listUsers: listUsers({ usersRepo }),
     getUserById: getUserById({ usersRepo }),
+    getUserByEmail: getUserByEmail({ usersRepo }),
     updateUser: updateUser({ usersRepo }),
     deleteUser: deleteUser({ usersRepo }),
   });

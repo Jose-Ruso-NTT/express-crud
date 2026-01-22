@@ -1,5 +1,7 @@
+import { HttpStatus } from "@shared/http/http-status";
+
 export abstract class AppError extends Error {
-  abstract readonly status: number;
+  abstract readonly status: HttpStatus;
   readonly code?: string;
   readonly details?: unknown;
 

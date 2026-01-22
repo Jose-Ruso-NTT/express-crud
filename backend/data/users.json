@@ -1,3 +1,11 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": "8efa2d9d-058f-4e26-8330-da583bcb48bf",
+      "email": "test@test.com",
+      "name": "John Doe",
+      "createdAt": "2026-01-21T16:27:56.654Z",
+      "updatedAt": "2026-01-21T16:33:58.784Z"
+    }
+  ]
 }

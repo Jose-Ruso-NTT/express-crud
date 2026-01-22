@@ -7,6 +7,7 @@ export function usersRoutes(controller: UsersController): Router {
 
   router.get("/", asyncHandler(controller.listUsers));
   router.get("/:id", asyncHandler(controller.getUserById));
+  router.get("/by-email/:email", asyncHandler(controller.getUserByEmail));
   router.post("/", asyncHandler(controller.createUser));
   router.patch("/:id", asyncHandler(controller.updateUser));
   router.delete("/:id", asyncHandler(controller.deleteUser));
